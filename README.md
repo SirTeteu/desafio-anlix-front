@@ -1,24 +1,11 @@
-# front
+# Setup do ambiente
 
-## Project setup
-```
+*Executar no gitbash ou em um terminal com suporte a execução de scripts bash*
+````
+git clone https://github.com/SirTeteu/desafio-anlix-front.git
+cd desafio-anlix-front/
 yarn install
-```
+````
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Iniciar aplicação  
+``yarn serve``
