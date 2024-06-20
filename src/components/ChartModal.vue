@@ -279,19 +279,21 @@ export default {
 
             loading: false,
 
-            chartContent: "",
+            chartContent: "", // variavel da opção selecionada
             chartContentOptions: [
                 { label: "Índice Cardíaco", value: "ind_card" },
                 { label: "Índice Pulmonar", value: "ind_pulm" }
             ],
 
-            loaded: false,
-            chartsData: {},
-            options: {}
+            loaded: false, /* variável auxiliar para determinar quando
+                            / o gráfico está carregado */
+            chartsData: {}, // dados do gráfico
+            options: {} // configuração do gráfico
         }
     },
 
     watch: {
+        // watcher para acompanhar quando o modal fecha ou abre
         'modelValue': function () {
             if (this.modelValue) {
                 this.chartContent = "ind_card";
@@ -301,10 +303,12 @@ export default {
     },
 
     methods: {
+        // fecha a modal
         closeModal() {
             this.$emit('update:modelValue', false);
         },
 
+        // faz requisição http para pegar os indices cardiaco e pulmonar mais recentes
         fetchPacienteDetails() {
             this.loading = true;
 
@@ -323,6 +327,7 @@ export default {
             });
         },
 
+        // inicializa os dados do gráfico
         initChartData(label, data, valueProp) {
             let chart = {
                 labels: [],
@@ -344,6 +349,7 @@ export default {
             return chart;
         },
 
+        // cria os objetos dos gráficos para serem criados
         createCharts(dataArray) {
             for (let data of dataArray) {
                 this.chartsData[data.name] = this.initChartData(data.label, data.data, data.name);
