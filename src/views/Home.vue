@@ -18,9 +18,10 @@
                     :headers="headers"
                     :items="mPacientes"
                     items-per-page="10"
+                    hover
                 >
                     <template v-slot:item="{ item }">
-                        <tr>
+                        <tr class="row-value" @click="onShowPaciente(item)">
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
                             <td>{{ item.cpf }}</td>
@@ -35,11 +36,14 @@
             </v-layout>
 
         </transition>
+        
+        <chart-modal v-model="dlg" :paciente="paciente" />
     </v-container>
 </template>
   
 <script>
 import SearchInput from '../components/SearchInput';
+import ChartModal from '../components/ChartModal';
 
 import pacienteProvider from '../api/PacienteProvider';
 
@@ -47,14 +51,18 @@ export default {
     name: 'Home',
 
     components: {
+        ChartModal,
         SearchInput
     },
 
     data() {
         return {
-            loading: false,
+            loading: false, // variavel auxiliar para exibir o loading
 
-            search: "",
+            dlg: false, // variavel que representa o estado do modal/dialog
+            paciente: {}, // paciente selecionado para abrir o modal
+            
+            search: "", // string do input de busca
 
             headers: [
                 { title: 'ID', value: 'id', sortable: true, class: 'my-header-style' },
@@ -67,8 +75,8 @@ export default {
                 { title: 'Índice Pulmonar', value: 'ind_pulm', class: 'my-header-style' }
             ],
 
-            pacientes: [],
-            mPacientes: []
+            pacientes: [], // lista de pacientes
+            mPacientes: [] // copia do array para filtrar os pacientes pesquisados
         }
     },
 
@@ -77,6 +85,7 @@ export default {
     },
 
     methods: {
+        /* faz a requisição da lista de usuários */
         fetchPacientes() {
             this.loading = true;
 
@@ -99,6 +108,7 @@ export default {
             });
         },
 
+        /* filtra a lista de pacientes através do input de procura */
         filterPacientes() {
             this.mPacientes = this.pacientes.filter(paciente => {
                 let nomes = paciente.nome.split(' ');
@@ -110,25 +120,33 @@ export default {
 
                 return false;
             });       
+        },
+
+        /* abre o modal para exibir o gráfico */
+        onShowPaciente(value) {
+            this.paciente = value;
+            this.dlg = true;
         }
     }
 };
 </script>
 
 <style>
-.my-header-style {
-    color: #666fff;
-}
-
+/* alinha o loading no centro da tela */
 .align-loading {
     height: 100%;
     align-items: center;
     justify-content: center;
 }
 
+/* estiliza o header do table */
 th {
   font-weight:  800 !important;
   background-color: rgb(38, 166, 154, 0.1);
+}
+
+tr.row-value {
+    cursor: pointer;
 }
 
 /* css transition  */
