@@ -10,6 +10,199 @@
         >
             <v-card-text>
                 <v-container>
+                    <transition name="slide-fade" mode="out-in">
+                    
+                        <v-row class="align-loading" v-if="loading">
+                            <v-progress-circular
+                                :size="30"
+                                :width="3"
+                                color="teal-lighten-1"
+                                indeterminate
+                            ></v-progress-circular>
+                        </v-row>
+
+                        <div v-else-if="chartsData">
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="8">
+                                    <v-text-field 
+                                        label="Nome" 
+                                        :model-value="paciente.nome" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="Sexo" 
+                                        :model-value="paciente.sexo" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="Data de Nascimento" 
+                                        :model-value="moment(paciente.data_nasc).format('DD/MM/YYYY')" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="Idade" 
+                                        :model-value="paciente.idade" 
+                                        suffix="anos" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="RG" 
+                                        :model-value="paciente.rg" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="CPF" 
+                                        :model-value="paciente.cpf" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="8">
+                                    <v-text-field 
+                                        label="E-mail" 
+                                        :model-value="paciente.email" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="6">
+                                    <v-text-field 
+                                        label="Telefone Fixo" 
+                                        :model-value="paciente.telefone_fixo" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="6">
+                                    <v-text-field 
+                                        label="Celular" 
+                                        :model-value="paciente.celular" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="6">
+                                    <v-text-field 
+                                        label="Nome da mãe" 
+                                        :model-value="paciente.mae" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="6">
+                                    <v-text-field 
+                                        label="Nome do pai" 
+                                        :model-value="paciente.pai" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="CEP" 
+                                        :model-value="paciente.cep" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="8">
+                                    <v-text-field 
+                                        label="Endereço" 
+                                        :model-value="paciente.endereco" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="12" sm="2">
+                                    <v-text-field 
+                                        label="Número" 
+                                        :model-value="paciente.numero" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="Bairro" 
+                                        :model-value="paciente.bairro" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="4">
+                                    <v-text-field 
+                                        label="Cidade" 
+                                        :model-value="paciente.cidade" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="12" sm="2">
+                                    <v-text-field 
+                                        label="EStado" 
+                                        :model-value="paciente.estado" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-row class="remove-margin">
+                                <v-col cols="12" xs="6" sm="4">
+                                    <v-text-field 
+                                        label="Altura" 
+                                        :model-value="paciente.altura"
+                                        suffix="m" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="6" sm="4">
+                                    <v-text-field 
+                                        label="Peso" 
+                                        :model-value="paciente.peso"
+                                        suffix="kg" 
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+
+                                <v-col cols="12" xs="6" sm="4">
+                                    <v-text-field 
+                                        label="Tipo sanguíneo" 
+                                        :model-value="paciente.tipo_sanguineo"
+                                        readonly
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+
+                            <v-divider class="mt-5 mb-5"/>
+
                             <v-row>
                                 <v-radio-group
                                     v-model="chartContent"
